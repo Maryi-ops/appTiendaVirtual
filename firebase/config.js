@@ -2,12 +2,12 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 
 const config = {
-    apiKey: "AIzaSyA7S9eXN-9QToupjjlh7e1DBtE_Q_zw4AQ",
-    authDomain: "tiendavirtual2-d3035.firebaseapp.com",
-    projectId: "tiendavirtual2-d3035",
-    storageBucket: "tiendavirtual2-d3035.firebasestorage.app",
-    messagingSenderId: "65380936454",
-    appId: "1:65380936454:web:87bc45ebf9b91ff7500c87",
+      apiKey: "AIzaSyDn8qfYSOWytR8s06EcOCePSZ7eoiaOxYQ",
+  authDomain: "tiendavirtual2-ec332.firebaseapp.com",
+  projectId: "tiendavirtual2-ec332",
+  storageBucket: "tiendavirtual2-ec332.firebasestorage.app",
+  messagingSenderId: "767894634113",
+  appId: "1:767894634113:web:7b4c5e20849466ca1e1780",
 };
 
 const app = initializeApp(config);
