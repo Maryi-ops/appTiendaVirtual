@@ -4,65 +4,140 @@ import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { Ionicons } from "@expo/vector-icons";
 
-import CatalogoScreen from "../Screens/CatalogoScreen";
 import AdminProductosScreen from "../Screens/AdminProductosScreen";
 import FormularioProductoScreen from "../Screens/FormularioProductoScreen";
+import CatalogoScreen from "../Screens/CatalogoScreen";
+import OtraScreenAdmin from "../Screens/OtraScreenAdmin";
+import OtraScreenCliente from "../Screens/OtraScreenCliente";
+import Login from "../components/Login";
 
+const RootStack = createNativeStackNavigator();
+const CatalogoStack = createNativeStackNavigator();
+const AdminStack = createNativeStackNavigator();
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
 
-function AdminProductosNavegacion() {
+function CatalogoNavegacion() {
     return (
-        <Stack.Navigator>
-            <Stack.Screen
+        <CatalogoStack.Navigator>
+            <CatalogoStack.Screen
+                name="CatalogoScreen"
+                component={CatalogoScreen}
+                options={{ title: "Catálogo" }}
+            />
+        </CatalogoStack.Navigator>
+    );
+}
+
+function AdminNavegacion() {
+    return (
+        <AdminStack.Navigator>
+            <AdminStack.Screen
                 name="AdminProductosScreen"
                 component={AdminProductosScreen}
-                options={{ title: "Admin Productos" }}
+                options={{ headerShown: false }}
             />
-            <Stack.Screen
+            <AdminStack.Screen
                 name="FormularioProductoScreen"
                 component={FormularioProductoScreen}
-                options={{ title: "Formulario de producto" }}
+                options={{ headerShown: false }}
             />
-        </Stack.Navigator>
+        </AdminStack.Navigator>
+    );
+}
+
+function ClienteTabs() {
+    return (
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: "#7C7CFF",
+                tabBarInactiveTintColor: "gray",
+            }}
+        >
+            <Tab.Screen
+                name="CatalogoTab"
+                component={CatalogoNavegacion}
+                options={{
+                    title: "Catálogo",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name="home-outline"
+                            color={color}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="OtraScreenCliente"
+                component={OtraScreenCliente}
+                options={{
+                    title: "Mi perfil",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name="person-outline"
+                            color={color}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
+    );
+}
+
+function AdminTabs() {
+    return (
+        <Tab.Navigator
+            screenOptions={{
+                headerShown: false,
+                tabBarActiveTintColor: "#7C7CFF",
+                tabBarInactiveTintColor: "gray",
+            }}
+        >
+            <Tab.Screen
+                name="ProductosTab"
+                component={AdminNavegacion}
+                options={{
+                    title: "Productos",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name="cube-outline"
+                            color={color}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+            <Tab.Screen
+                name="OtraScreenAdmin"
+                component={OtraScreenAdmin}
+                options={{
+                    title: "Mi perfil",
+                    tabBarIcon: ({ color, size }) => (
+                        <Ionicons
+                            name="person-outline"
+                            color={color}
+                            size={size}
+                        />
+                    ),
+                }}
+            />
+        </Tab.Navigator>
     );
 }
 
 export default function Navegacion() {
     return (
         <NavigationContainer>
-            <Tab.Navigator
-                screenOptions={({ route }) => ({
-                    tabBarActiveTintColor: "#7C7CFF",
-                    tabBarInactiveTintColor: "#777777",
-                    headerShown: false,
-                    tabBarIcon: ({ color, size }) => {
-                        const iconos = {
-                            Catalogo: "storefront-outline",
-                            "Admin Productos": "create-outline",
-                        };
-
-                        return (
-                            <Ionicons
-                                name={iconos[route.name]}
-                                size={size}
-                                color={color}
-                            />
-                        );
-                    },
-                })}
+            <RootStack.Navigator
+                initialRouteName="Login"
+                screenOptions={{ headerShown: false }}
             >
-                <Tab.Screen
-                    name="Catalogo"
-                    component={CatalogoScreen}
-                    options={{ title: "Catálogo" }}
-                />
-                <Tab.Screen
-                    name="Admin Productos"
-                    component={AdminProductosNavegacion}
-                    options={{ title: "Admin Productos" }}
-                />
-            </Tab.Navigator>
+                <RootStack.Screen name="Login" component={Login} />
+                <RootStack.Screen name="ClienteTabs" component={ClienteTabs} />
+                <RootStack.Screen name="AdminTabs" component={AdminTabs} />
+            </RootStack.Navigator>
         </NavigationContainer>
     );
 }
